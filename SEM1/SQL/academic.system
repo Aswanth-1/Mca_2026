@@ -1,0 +1,80 @@
+*drop table student;
+*drop table department;
+
+
+-------------DEPARTEMENT------------------------
+* create table department(
+dept_id number(5),
+dept_name varchar2(50) not null,
+hod_name varchar2(40) not null,
+office_location varchar2(30) ,
+contact_number numeric(10),
+
+CONSTRAINT pk_department
+PRIMARY KEY(dept_id),
+
+CONSTRAINT uq_department_name
+UNIQUE (dept_name)
+);
+--------------------------------------------------
+
+-----------------STUDENT--------------------------
+* create table student(
+student_id number(6),
+student_name varchar2(30),
+dob date,
+gender char(1),
+mobile_number number(10),
+email_id varchar2(20),
+dept_id varchar2(20), 
+admission_date date default SYSDATE,
+cgpa numeric(4,2),
+
+CONSTRAINT pk_student
+PRIMARY KEY(student_id),
+
+CONSTRAINT uq_student_email
+UNIQUE(email_id),
+
+CONSTRAINT chk_gender 
+CHECK (gender IN ('MALE','FEMALE','OTHER')) 
+
+)
+--------------------------------------------
+
+drop table course;
+------------FACULTY--------------------------
+create table faculty(
+faculty_id number(6),
+faculty_name varchar2(30),
+qualification varchar2(20),
+designation varchar2(20),
+joining_date date,
+salary numeric(10,2),
+email_id varchar2(20),
+dept_id number(5),
+
+CONSTRAINT pk_faculty
+PRIMARY KEY (faculty_id),
+
+CONSTRAINT uq_faculty_email
+UNIQUE (email_id),
+
+CONSTRAINT chck_faculty_salary CHECK (salary>0)
+)
+
+-----------------------------------------------
+
+
+
+----------------COURSE------------------------
+create table course(
+course_id number(6) PRIMARY KEY,
+course_name varchar2(20) not null,
+credits number(2) check (credits BETWEEN 1 AND 6),
+semester number(2) check (semester BETWEEN 1 AND 8),
+dept_id number(5),
+faculty_id number(5))
+-------------------------------------------------
+
+
